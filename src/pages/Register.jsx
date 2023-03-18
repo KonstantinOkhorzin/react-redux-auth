@@ -5,7 +5,7 @@ import { register } from '../redux/auth/operations';
 
 const Register = () => {
   const dispatch = useDispatch();
-  const [login, setLogin] = useState('');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -13,8 +13,8 @@ const Register = () => {
     const { name, value } = e.target;
 
     switch (name) {
-      case 'login':
-        return setLogin(value);
+      case 'name':
+        return setName(value);
       case 'email':
         return setEmail(value);
       case 'password':
@@ -26,8 +26,8 @@ const Register = () => {
 
   const onFormSubmit = e => {
     e.preventDefault();
-    dispatch(register({ login, email, password }));
-    setLogin('');
+    dispatch(register({ name, email, password }));
+    setName('');
     setEmail('');
     setPassword('');
   };
@@ -38,7 +38,7 @@ const Register = () => {
       <form onSubmit={onFormSubmit}>
         <label>
           Login:
-          <input type='text' name='login' value={login} onChange={onInputChange} />
+          <input type='text' name='name' value={name} onChange={onInputChange} />
         </label>
         <br />
         <label>
