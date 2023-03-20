@@ -11,6 +11,9 @@ import Login from '../pages/Login';
 import { refreshUser } from '../redux/auth/operations';
 import { selectIsRefreshing } from '../redux/auth/selectors';
 
+import PrivateRoute from './PrivateRoute';
+import RestrictedRoute from './RestrictedRoute';
+
 function App() {
   const dispatch = useDispatch();
   const isRefreshing = useSelector(selectIsRefreshing);
@@ -25,9 +28,15 @@ function App() {
     <Routes>
       <Route path='/' element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path='tasks' element={<Tasks />} />
-        <Route path='register' element={<Register />} />
-        <Route path='login' element={<Login />} />
+        <Route path='tasks' element={<PrivateRoute redirectTo='/login' component={<Tasks />} />} />
+        <Route
+          path='register'
+          element={<RestrictedRoute redirectTo='/tasks' component={<Register />} />}
+        />
+        <Route
+          path='login'
+          element={<RestrictedRoute redirectTo='/tasks' component={<Login />} />}
+        />
       </Route>
     </Routes>
   );
