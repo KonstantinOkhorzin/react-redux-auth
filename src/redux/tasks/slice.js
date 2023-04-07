@@ -1,12 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 import { logOut } from '../auth/operations';
 import { fetchTasks, addTask, deleteTask } from './operations';
 
-const initialState = {
-  items: [],
+const tasksAdapter = createEntityAdapter();
+
+const initialState = tasksAdapter.getInitialState({
   isLoading: false,
   error: null,
-};
+});
 
 const handlePending = state => {
   state.isLoading = true;
@@ -25,21 +26,20 @@ const tasksSlice = createSlice({
       .addCase(fetchTasks.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.items = action.payload;
+        tasksAdapter.setAll(state, action.payload);
       })
       .addCase(addTask.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        state.items.push(action.payload);
+        tasksAdapter.addOne(state, action.payload);
       })
       .addCase(deleteTask.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        const index = state.items.findIndex(task => task.id === action.payload.id);
-        state.items.splice(index, 1);
+        tasksAdapter.removeOne(state, action.payload.id);
       })
       .addCase(logOut.fulfilled, state => {
-        state.items = [];
+        tasksAdapter.removeAll(state);
         state.error = null;
         state.isLoading = false;
       })
@@ -54,3 +54,5 @@ const tasksSlice = createSlice({
 });
 
 export const tasksReducer = tasksSlice.reducer;
+
+export const { selectAll: selectAllTasks } = tasksAdapter.getSelectors(state => state.tasks);
