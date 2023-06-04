@@ -1,58 +1,44 @@
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Formik, Form } from 'formik';
+
+import { registerSchema } from '../schemas';
 
 import { register } from '../redux/auth/operations';
 
+import TextInput from '../components/TextInput';
+
+const initialValues = {
+  name: '',
+  email: '',
+  password: '',
+};
+
 const Register = () => {
   const dispatch = useDispatch();
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const onInputChange = e => {
-    const { name, value } = e.target;
-
-    switch (name) {
-      case 'name':
-        return setName(value);
-      case 'email':
-        return setEmail(value);
-      case 'password':
-        return setPassword(value);
-      default:
-        return;
-    }
-  };
-
-  const onFormSubmit = e => {
-    e.preventDefault();
-    dispatch(register({ name, email, password }));
-    setName('');
-    setEmail('');
-    setPassword('');
+  const onFormSubmit = (values, actions) => {
+    dispatch(register(values));
+    actions.resetForm();
   };
 
   return (
     <div>
       <h1>Register</h1>
-      <form onSubmit={onFormSubmit}>
-        <label>
-          Login:
-          <input type='text' name='name' value={name} onChange={onInputChange} />
-        </label>
-        <br />
-        <label>
-          Email:
-          <input type='email' name='email' value={email} onChange={onInputChange} />
-        </label>
-        <br />
-        <label>
-          Password:
-          <input type='password' name='password' value={password} onChange={onInputChange} />
-        </label>
-        <br />
-        <button>Submit</button>
-      </form>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={registerSchema}
+        onSubmit={onFormSubmit}
+      >
+        <Form>
+          <TextInput name='name' label='Login:' placeholder='name' />
+          <br />
+          <TextInput name='email' label='Email:' type='email' />
+          <br />
+          <TextInput name='password' label='Password:' type='password' />
+          <br />
+          <button type='submit'>Submit</button>
+        </Form>
+      </Formik>
     </div>
   );
 };
