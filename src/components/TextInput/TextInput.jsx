@@ -6,7 +6,7 @@ const TextInput = ({ label, name, type = 'text', ...restProps }) => {
   return (
     <label>
       {label}
-      <Field name={name} {...restProps} />
+      <Field name={name} type={type} {...restProps} />
       <FormError name={name} />
     </label>
   );
