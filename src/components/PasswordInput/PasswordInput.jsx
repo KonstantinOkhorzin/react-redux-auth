@@ -24,7 +24,7 @@ const PasswordInput = ({ name, label, errors, touched }) => {
 
   return (
     <FormControl fullWidth error={errors[name] && touched[name]} sx={{ mb: 2 }}>
-      <InputLabel htmlFor={passwordInputId}>Password</InputLabel>
+      <InputLabel htmlFor={passwordInputId}>{label}</InputLabel>
       <Field
         name={name}
         label={label}

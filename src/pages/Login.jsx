@@ -8,6 +8,9 @@ import WrapperForm from '../components/WrapperForm';
 import TextInput from '../components/TextInput';
 import PasswordInput from '../components/PasswordInput';
 
+
+const initialValues = { email: '', password: '' };
+
 const Login = () => {
   const dispatch = useDispatch();
 
@@ -15,8 +18,6 @@ const Login = () => {
     dispatch(logIn(values));
     actions.resetForm();
   };
-
-  const initialValues = { email: '', password: '' };
 
   return (
     <WrapperForm title='Login'>

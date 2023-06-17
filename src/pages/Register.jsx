@@ -1,11 +1,12 @@
 import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
+import { Button } from '@mui/material';
 
 import { registerSchema } from '../schemas';
-
 import { register } from '../redux/auth/operations';
-
+import WrapperForm from '../components/WrapperForm';
 import TextInput from '../components/TextInput';
+import PasswordInput from '../components/PasswordInput';
 
 const initialValues = {
   name: '',
@@ -24,26 +25,41 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h1>Register</h1>
+    <WrapperForm title='Register'>
       <Formik
         initialValues={initialValues}
         validationSchema={registerSchema}
         onSubmit={onFormSubmit}
       >
-        <Form>
-          <TextInput name='name' label='Login:' placeholder='name' />
-          <br />
-          <TextInput name='email' label='Email:' type='email' />
-          <br />
-          <TextInput name='password' label='Password:' type='password' />
-          <br />
-          <TextInput name='confirmPassword' label='Confirm password:' type='password' />
-          <br />
-          <button type='submit'>Submit</button>
-        </Form>
+        {({ errors, touched, dirty, isValid }) => (
+          <Form>
+            <TextInput name='name' label='Name' errors={errors} touched={touched} />
+
+            <TextInput name='email' label='Email' type='email' errors={errors} touched={touched} />
+
+            <PasswordInput
+              name='password'
+              label='Password'
+              type='password'
+              errors={errors}
+              touched={touched}
+            />
+
+            <PasswordInput
+              name='confirmPassword'
+              label='Confirm password'
+              type='password'
+              errors={errors}
+              touched={touched}
+            />
+
+            <Button type='submit' variant='contained' fullWidth disabled={!dirty || !isValid}>
+              Submit
+            </Button>
+          </Form>
+        )}
       </Formik>
-    </div>
+    </WrapperForm>
   );
 };
 
