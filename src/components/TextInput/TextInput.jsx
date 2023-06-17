@@ -1,14 +1,19 @@
 import { Field } from 'formik';
+import { TextField } from '@mui/material';
 
-import FormError from '../FormError';
-
-const TextInput = ({ label, name, type = 'text', ...restProps }) => {
+const TextInput = ({ name, type = 'text', label, errors, touched, ...restProps }) => {
   return (
-    <label>
-      {label}
-      <Field name={name} type={type} {...restProps} />
-      <FormError name={name} />
-    </label>
+    <Field
+      name={name}
+      type={type}
+      label={label}
+      error={errors[name] && touched[name]}
+      helperText={touched[name] && errors[name]}
+      as={TextField}
+      fullWidth
+      sx={{ mb: 2 }}
+      {...restProps}
+    />
   );
 };
 
