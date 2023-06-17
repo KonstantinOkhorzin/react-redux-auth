@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
 
-const registerSchema = Yup.object().shape({
-  name: Yup.string().min(2, 'Too Short!').max(50, 'Too Long!').required('Please enter your name'),
+const loginSchema = Yup.object().shape({
   email: Yup.string()
     .matches(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, 'Invalid email')
     .required('Please enter email'),
@@ -12,9 +11,6 @@ const registerSchema = Yup.object().shape({
     .matches(/[0-9]/, 'Password must contain at least one digit')
     .matches(/[!@#$%^&*()]/, 'Password must contain at least one special character')
     .required('Please enter password'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Please confirm password'),
 });
 
-export default registerSchema;
+export default loginSchema;
