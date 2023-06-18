@@ -4,11 +4,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider, Global } from '@emotion/react';
+import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 
 import { store, persistor } from './redux/store';
 import App from './components/App';
 import { theme } from './styles/theme';
 import { GlobalStyles } from './styles/GlobalStyles';
+import { muiTheme } from './styles/muiTheme';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,7 +19,9 @@ root.render(
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <ThemeProvider theme={theme}>
-            <App />
+            <MuiThemeProvider theme={muiTheme}>
+              <App />
+            </MuiThemeProvider>
             <Global styles={GlobalStyles} />
           </ThemeProvider>
         </PersistGate>
