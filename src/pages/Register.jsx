@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
 import { Button } from '@mui/material';
 
 import { registerSchema } from '../schemas';
@@ -7,6 +7,7 @@ import { register } from '../redux/auth/operations';
 import WrapperForm from '../components/WrapperForm';
 import TextInput from '../components/TextInput';
 import PasswordInput from '../components/PasswordInput';
+import FormBody from '../components/FormBody';
 
 const initialValues = {
   name: '',
@@ -32,7 +33,7 @@ const Register = () => {
         onSubmit={onFormSubmit}
       >
         {({ errors, touched, dirty, isValid }) => (
-          <Form>
+          <FormBody>
             <TextInput name='name' label='Name' errors={errors} touched={touched} />
 
             <TextInput name='email' label='Email' type='email' errors={errors} touched={touched} />
@@ -53,10 +54,10 @@ const Register = () => {
               touched={touched}
             />
 
-            <Button type='submit' variant='contained' fullWidth disabled={!dirty || !isValid}>
+            <Button type='submit' variant='contained' disabled={!dirty || !isValid}>
               Submit
             </Button>
-          </Form>
+          </FormBody>
         )}
       </Formik>
     </WrapperForm>

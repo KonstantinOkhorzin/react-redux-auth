@@ -23,7 +23,7 @@ const PasswordInput = ({ name, label, errors, touched }) => {
   };
 
   return (
-    <FormControl fullWidth error={errors[name] && touched[name]} sx={{ mb: 2 }}>
+    <FormControl error={errors[name] && touched[name]}>
       <InputLabel htmlFor={passwordInputId}>{label}</InputLabel>
       <Field
         name={name}
@@ -39,7 +39,7 @@ const PasswordInput = ({ name, label, errors, touched }) => {
               onMouseDown={handleMouseDownPassword}
               edge='end'
               sx={{
-                color: errors.password && touched.password ? 'error.main' : 'inherit',
+                color: errors[name] && touched[name] ? 'error.main' : 'inherit',
               }}
             >
               {showPassword ? <VisibilityOff /> : <Visibility />}

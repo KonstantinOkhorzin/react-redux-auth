@@ -10,5 +10,6 @@ export const muiTheme = createTheme({
       main: theme.colors.secondary,
     },
   },
+  spacing: theme.spacing,
 });
 

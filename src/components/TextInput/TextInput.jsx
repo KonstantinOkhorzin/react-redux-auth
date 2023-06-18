@@ -10,8 +10,6 @@ const TextInput = ({ name, type = 'text', label, errors, touched, ...restProps }
       error={errors[name] && touched[name]}
       helperText={touched[name] && errors[name]}
       as={TextField}
-      fullWidth
-      sx={{ mb: 2 }}
       {...restProps}
     />
   );
